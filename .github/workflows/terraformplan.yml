@@ -1,0 +1,63 @@
+# This is a basic workflow to help you get started with Actions
+
+name: "Terraform Plan"
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  pull_request:
+    branches: [ "master" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  terraform-plan:
+    # The type of runner that the job will run on
+    runs-on: self-hosted
+    environment: Development
+    defaults:
+      run:
+        shell: bash
+        #working-directory: ./workfolder
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+      - name: Set Terraform CLI Path
+        env:
+          TERRAFORM_CLI_PATH: C:\\actions-runner\\workfolder\\_temp\\535700e0-0677-44e7-b9dc-4c3990b932d5
+        run: echo "Terraform CLI path is set to $TERRAFORM_CLI_PATH"
+
+      # Runs a single command using the runners shell
+      - name: terraform setup
+        uses: hashicorp/setup-terraform@v3
+      #- name: Setup TFLint
+        #uses: terraform-linters/setup-tflint@default
+      #- name: tflint init
+        #id: tfinit
+        #run: tflint init
+      #- name: tflint compact
+        #id: tfcompact
+        #run: tflint -f compact
+        
+      # Runs a set of commands using the runners shell
+      
+      - name: terraform init
+        id: init
+        run: terraform init
+        
+      - name: terraform format
+        id: fmt
+        run: terraform fmt -check
+        
+      - name: terraform validate
+        id: validate
+        run: terraform validate
+        
+      - name: terraform plan
+        id: plan
+        run: terraform plan
