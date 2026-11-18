@@ -34,8 +34,8 @@ jobs:
         run: echo "Terraform CLI path is set to $TERRAFORM_CLI_PATH"
 
       # Runs a single command using the runners shell
-      - name: terraform setup
-        uses: hashicorp/setup-terraform@v4
+      #- name: terraform setup
+        #uses: hashicorp/setup-terraform@v4
       - name: Verify Terraform Installation
         shell: powershell -ExecutionPolicy Bypass -File {0}
         run: |
