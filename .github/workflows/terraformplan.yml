@@ -27,15 +27,25 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-      - name: Set Terraform CLI Path
-        env:
-          TERRAFORM_CLI_PATH: C:\\actions-runner\\_work\\_temp\\
+      #- name: Set Terraform CLI Path
+        #env:
+          #TERRAFORM_CLI_PATH: C:\\actions-runner\\_work\\_temp\\
           #535700e0-0677-44e7-b9dc-4c3990b932d5
-        run: echo "Terraform CLI path is set to $TERRAFORM_CLI_PATH"
+        #run: echo "Terraform CLI path is set to $TERRAFORM_CLI_PATH"
 
       # Runs a single command using the runners shell
       - name: terraform setup
         uses: hashicorp/setup-terraform@v4
+      - name: Verify Terraform Installation
+        shell: powershell -ExecutionPolicy Bypass -File {0}
+        run: |
+              Write-Output "Checking Terraform installation..."
+              Get-Command terraform -All | Format-List *
+              Write-Output "Terraform executable location:"
+              where.exe terraform
+              Write-Output "Terraform version:"
+              terraform version
+              
       #- name: Setup TFLint
         #uses: terraform-linters/setup-tflint@default
       #- name: tflint init
