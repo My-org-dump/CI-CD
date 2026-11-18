@@ -29,7 +29,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Set Terraform CLI Path
         env:
-          TERRAFORM_CLI_PATH: C:\\actions-runner\\workfolder\\_temp\\535700e0-0677-44e7-b9dc-4c3990b932d5
+          TERRAFORM_CLI_PATH: C:\\actions-runner\\_work
+          #\\_temp\\535700e0-0677-44e7-b9dc-4c3990b932d5
         run: echo "Terraform CLI path is set to $TERRAFORM_CLI_PATH"
 
       # Runs a single command using the runners shell
